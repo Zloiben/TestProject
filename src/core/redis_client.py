@@ -1,3 +1,4 @@
 from redis.asyncio import Redis
+from src.config import config
 
-redis_client = Redis(host='localhost', port=6379, decode_responses=True, retry_on_timeout=True)
+redis_client = Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, decode_responses=True, retry_on_timeout=True)
