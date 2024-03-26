@@ -1,11 +1,10 @@
 from fastapi import status
 from fastapi.responses import JSONResponse
 
-from src.core.utils.struct import convert_to_set
+from .utils.struct import convert_to_set
 
 from typing import Optional, Dict, Type, List, Union, Set
 from pydantic import BaseModel
-
 
 __all__ = (
     "ResponseInterface",
@@ -92,7 +91,7 @@ class ResponseSchema:
 class ResponsesStructure:
     """Класс позволяет делать структуру ответов"""
 
-    def __init__(self, *structure: List[ResponseSchema]) -> None:
+    def __init__(self, *structure: ResponseSchema) -> None:
         self.__structure: Set[ResponseSchema] = convert_to_set(structure)
         self.__structure.add(
             ResponseSchema(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, description="Ошибка сервера")
