@@ -9,7 +9,9 @@ __all__ = (
 
 
 async def get_contact_address_manager() -> ContactAddressManager:
-    return ContactAddressManager()
+    contact_manager = ContactAddressManager()
+    yield contact_manager
+    await contact_manager.client.aclose()
 
 
 ContactAddressManagerAnnotated = Annotated[ContactAddressManager, Depends(get_contact_address_manager)]
