@@ -1,0 +1,24 @@
+# SQL-Запрос
+
+UPDATE full_names
+SET status = short_names.status
+FROM short_names
+WHERE short_names.name = SUBSTRING(full_names.name FROM '^[^\.]*');
+
+# Скрипт 
+
+short_names = 'SELECT name, status FROM short_names'
+short_names_data = {
+  name: status
+  for name, status in short_names
+}
+
+full_names = 'SELECT name, status FROM full_names' 
+for name, _ in full_names:
+  normal_name = name.split('.')[0]
+  status_value = short_names_data[normal_name]
+  f"""UPDATE full_names SET status = {status_value} WHERE name = '{name}'"""
+
+
+
+
