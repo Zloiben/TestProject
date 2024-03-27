@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
+ARG MODE
 RUN if [ "$MODE" != "PROD" ]; then \
         pip install --no-cache-dir -r requirements-test.txt; \
     fi
